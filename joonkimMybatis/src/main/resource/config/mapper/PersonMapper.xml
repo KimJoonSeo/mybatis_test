@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.PersonMapper" >
+
+	<resultMap id="personResult" type="person">
+		<id property="id" column="person_id" />
+		<result property="name" column="person_name"/>
+		<result property="dept" column="person_dept"/>
+	</resultMap>
+	
+	<select id="selectPerson" resultType="person" parameterType="int" resultMap="personResult">
+	    SELECT person_id, person_name, person_dept from person WHERE person_id = #{id}
+	</select>
+	
+	<insert id="insertPerson" parameterType="person">
+	<!-- keyProperty="id" useGeneratedKeys="true" 를 쓰면 자동키 생성을 쓸 수 있음. -->
+		INSERT into person(person_id, person_name, person_dept) VALUES (#{id}, #{name}, #{dept}) 	    
+	</insert>
+	
+	<update id="updatePerson" parameterType="person">
+		UPDATE person SET person_name=#{name}, person_dept =#{dept} WHERE person_id =#{id}  	    
+	</update>
+	
+	<delete id="deletePerson" parameterType="int">
+		DELETE FROM person WHERE person_id =#{id}  	    
+	</delete>
+	
+</mapper> 
